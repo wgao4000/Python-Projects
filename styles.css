@@ -117,6 +117,7 @@ nav ul li {
 }
 .project-container p {
   padding: 0.4rem;
+  text-align: justify;
 }
 
 .project-title {
