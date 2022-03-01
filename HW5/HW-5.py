@@ -4,7 +4,7 @@
 # implement the Caesar cipher (ROT13) with two functions
 # the encryption function takes a plaintext, and transform it into a ciphertext
 # the decryption function takes a ciphertext, and transform it into a plaintext
-
+import re
 alphaMatches = {
     "a": 0,
     "b": 1,
@@ -64,22 +64,41 @@ numMatches = {
 }
 
 def encryption(plainText):
-    cipherText = ''
-    for char in plainText:
-        shiftedValue = int(alphaMatches[char]) + 13
-        if(shiftedValue > 25):
-            shiftedValue %= 26
-        cipherText += numMatches[str(shiftedValue)] 
-    return cipherText 
+    res = bool(re.match('[a-zA-Z\s]+$', plainText))
+    if(res):
+        cipherText = ""
+        for char in plainText.lower():
+            if char.isspace():
+                cipherText += char
+            else:  
+                shiftedValue = int(alphaMatches[char]) + 13
+                if(shiftedValue > 25):
+                    shiftedValue %= 26
+                cipherText += numMatches[str(shiftedValue)] 
+        return cipherText 
+    else: 
+        return "The text should contain only alphabet letters or spaces"
 
 def decryption(cipherText):
-    plainText = ''
-    for char in cipherText:
-        shiftedValue = int(alphaMatches[char]) - 13
-        if(shiftedValue < 0):
-            shiftedValue %= 26
-        plainText += numMatches[str(shiftedValue)] 
-    return plainText 
+    res = bool(re.match("[a-zA-Z\s]+$", cipherText))
+    if(res):
+        plainText = ""
+        for char in cipherText.lower():
+            if char.isspace():
+                plainText += char
+            else:
+                shiftedValue = int(alphaMatches[char]) - 13
+                if(shiftedValue < 0):
+                    shiftedValue %= 26
+                plainText += numMatches[str(shiftedValue)] 
+        return plainText 
+    else: 
+        return "The text should contain only alphabet letters or spaces"
 
 print(encryption("abcdefghijklmnopqrstuvwxyz"))
 print(decryption("nopqrstuvwxyzabcdefghijklm"))
+print(encryption("t!tttt"))
+print(decryption("123ttt"))
+print(encryption("Test now Test now"))
+print(encryption("test now Test now"))
+print(decryption("Grfg abj grfg abj"))
