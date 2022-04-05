@@ -5,7 +5,9 @@ import secrets
 from math import pow
 import sympy 
 
-P = 2946901
+# P = 2946901
+P = sympy.randprime(10000000, 10000000000)
+print("the prime is " + str(P))
 M = "396"
 secretsGenerator = secrets.SystemRandom()
 def getKeys(P):
