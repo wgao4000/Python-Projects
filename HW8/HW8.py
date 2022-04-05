@@ -1,3 +1,6 @@
+#Author: Wei Gao
+#Date: 04/05/2022
+# An implementation of the ElGamal Encryption
 import secrets
 from math import pow
 import sympy 
